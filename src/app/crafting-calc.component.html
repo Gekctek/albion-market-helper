@@ -1,0 +1,38 @@
+<div>
+  <select>
+    <option *ngFor="let tier of tiers" value='{{tier}}'>
+      T{{tier}}
+    </option>
+</select>
+  <div>
+  </div>
+  <select [(ngModel)]='selectedItem' (ngModelChange)="onChange($event)">
+  <option *ngFor="let item of  items" [ngValue]="item" >
+    {{item.label}}
+  </option>
+</select>
+</div>
+<div *ngIf="selectedItem">
+    {{selectedItem | json}}
+    {{materialOne | json}}
+    {{materialTwo | json}}
+    {{artifact | json}}
+  <div *ngIf="selectedItem.materialOne != null">
+    <label>Material 1 Cost</label>
+    <input type="number" [(ngModel)]="materialOne.cost"> x {{materialOne.count}} = {{materialOne.cost * materialOne.count}}
+  </div>
+  <div *ngIf="selectedItem.materialTwo != null">
+    <label>Material 2 Cost</label>
+    <input type="number" [(ngModel)]="materialTwo.cost"> x {{materialTwo.count}} = {{materialTwo.cost * materialTwo.count}}
+  </div>
+  <div>Total cost = {{materialOne.cost * materialOne.count + materialTwo.cost * materialTwo.count + artifact.cost}}</div>
+  <div *ngIf="selectedItem.artifact != null">
+    <label>Artifact Cost</label>
+    <input type="number" [(ngModel)]="artifact.cost"> x 1
+  </div>
+  <div>
+    <label>Sell Price</label>
+    <input type="number" [(ngModel)]="sellPrice">
+  </div>
+  <div>Profit = {{sellPrice - (materialOne.cost * materialOne.count + materialTwo.cost * materialTwo.count + artifact.cost)}}</div>
+</div>

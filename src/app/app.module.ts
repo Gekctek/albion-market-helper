@@ -13,6 +13,8 @@ import { CraftingService }  from './crafting.service';
 import { AppComponent }  from './app.component';
 import { AppRoutingModule } from "./app-routing.module";
 import { CraftingCalcComponent } from "./crafting-calc.component";
+import { CeilNumberPipe } from "./ceil-number.pipe"
+import { FloorNumberPipe } from "./floor-number.pipe"
 
 
 
@@ -27,7 +29,9 @@ import { CraftingCalcComponent } from "./crafting-calc.component";
   ],
   declarations: [
     AppComponent,
-    CraftingCalcComponent
+    CraftingCalcComponent,
+    CeilNumberPipe,
+    FloorNumberPipe
   ],
   providers: [ CraftingService ],
   bootstrap: [ AppComponent ]

@@ -1,5 +1,12 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { CraftingItem, CraftingItemType, CraftingItemTypeMaterials, CraftingMaterialType } from './crafting.service';
+import { 
+  CraftingItem, 
+  CraftingItemType, 
+  CraftingItemTypeMaterials, 
+  CraftingMaterialType,
+  CraftingMaterialCostEntry,
+  CraftingItemCostEntry
+} from './crafting.service';
 
 
 export class InMemoryDataService implements InMemoryDbService {
@@ -11,7 +18,7 @@ export class InMemoryDataService implements InMemoryDbService {
         itemType: CraftingItemType.OneHandedWeapon,
         materialOne: CraftingMaterialType.Plank,
         materialTwo: CraftingMaterialType.Cloth,
-        artifact: false
+        artifact: null
       },
       {
         id: 1,
@@ -19,15 +26,47 @@ export class InMemoryDataService implements InMemoryDbService {
         itemType: CraftingItemType.TwoHandedWeapon,
         materialOne: CraftingMaterialType.Plank,
         materialTwo: CraftingMaterialType.Cloth,
-        artifact: false
+        artifact: null
       },
       {
         id: 2,
+        label: 'Divine Staff',
+        itemType: CraftingItemType.TwoHandedWeapon,
+        materialOne: CraftingMaterialType.Plank,
+        materialTwo: CraftingMaterialType.Cloth,
+        artifact: null
+      },
+      {
+        id: 3,
+        label: 'Lifetouch Staff',
+        itemType: CraftingItemType.OneHandedWeapon,
+        materialOne: CraftingMaterialType.Plank,
+        materialTwo: CraftingMaterialType.Cloth,
+        artifact: CraftingMaterialType.PossessedScroll
+      },
+      {
+        id: 4,
+        label: 'Fallen Staff',
+        itemType: CraftingItemType.TwoHandedWeapon,
+        materialOne: CraftingMaterialType.Plank,
+        materialTwo: CraftingMaterialType.Cloth,
+        artifact: CraftingMaterialType.InfernalScroll
+      },
+      {
+        id: 5,
         label: 'Eye of Secrets',
         itemType: CraftingItemType.Tome,
         materialOne: CraftingMaterialType.Cloth,
         materialTwo: CraftingMaterialType.Leather,
-        artifact: true
+        artifact: CraftingMaterialType.AlluringCrystal
+      },
+      {
+        id: 6,
+        label: 'Tome of Spells',
+        itemType: CraftingItemType.Tome,
+        materialOne: CraftingMaterialType.Cloth,
+        materialTwo: CraftingMaterialType.Leather,
+        artifact: null
       }
     ];
 
@@ -44,7 +83,10 @@ export class InMemoryDataService implements InMemoryDbService {
         id: CraftingItemType.Tome,
         materialCounts: [4, 4]
       }
-    ];
-    return { craftingItems, craftingItemTypes };
+    ]; 
+
+    const materialCostHistory: CraftingMaterialCostEntry[] = [];
+    const itemCostHistory: CraftingItemCostEntry[] = [];
+    return { craftingItems, craftingItemTypes, materialCostHistory, itemCostHistory };
   }
 }

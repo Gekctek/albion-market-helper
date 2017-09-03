@@ -19,20 +19,81 @@
     {{artifact | json}}
   <div *ngIf="selectedItem.materialOne != null">
     <label>Material 1 Cost</label>
-    <input type="number" [(ngModel)]="materialOne.cost"> x {{materialOne.count}} = {{materialOne.cost * materialOne.count}}
+    <input type="number" [(ngModel)]="materialOne.cost"> x {{materialOne.count}} = {{sum(materialOne)}}
   </div>
   <div *ngIf="selectedItem.materialTwo != null">
     <label>Material 2 Cost</label>
-    <input type="number" [(ngModel)]="materialTwo.cost"> x {{materialTwo.count}} = {{materialTwo.cost * materialTwo.count}}
+    <input type="number" [(ngModel)]="materialTwo.cost"> x {{materialTwo.count}} = {{sum(materialTwo)}}
   </div>
-  <div>Total cost = {{materialOne.cost * materialOne.count + materialTwo.cost * materialTwo.count + artifact.cost}}</div>
   <div *ngIf="selectedItem.artifact != null">
     <label>Artifact Cost</label>
-    <input type="number" [(ngModel)]="artifact.cost"> x 1
+    <input type="number" [(ngModel)]="artifact"> x 1
   </div>
+  <div>Total cost = {{totalCost()}}</div>
   <div>
     <label>Sell Price</label>
     <input type="number" [(ngModel)]="sellPrice">
   </div>
-  <div>Profit = {{sellPrice - (materialOne.cost * materialOne.count + materialTwo.cost * materialTwo.count + artifact.cost)}}</div>
+
+  Min Materials:
+  <table>
+    <thead>
+        <th></th>
+        <th>No Focus</th>
+        <th>Focus</th>
+    </thead>
+    <tbody>
+      <tr>
+          <td>Material One Needed</td>
+          <td>{{materialOne.count * (1/NoFocusCoef) | ceil}} -> {{materialOne.count}}</td>
+          <td>{{materialOne.count * (1/FocusCoef) | ceil}} -> {{materialOne.count}}</td>
+      </tr>
+      <tr>
+          <td>Material Two Needed</td>
+          <td>{{materialTwo.count * (1/NoFocusCoef) | ceil}} -> {{materialTwo.count}}</td>
+          <td>{{materialTwo.count * (1/FocusCoef) | ceil}} -> {{materialTwo.count}}</td>
+      </tr>
+      <tr>
+          <td>Total Cost</td>
+          <td>{{totalCost(1/NoFocusCoef) | ceil}}</td>
+          <td>{{totalCost(1/FocusCoef) | ceil}}</td>
+      </tr>
+      <tr>
+          <td>Total Profit</td>
+          <td>{{sellPrice - totalCost(1/NoFocusCoef) | floor}}</td>
+          <td>{{sellPrice - totalCost(1/FocusCoef) | floor}}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  Extra Materials:
+  <table>
+    <thead>
+        <th></th>
+        <th>No Focus</th>
+        <th>Focus</th>
+    </thead>
+    <tbody>
+      <tr>
+          <td>Material One Count</td>
+          <td>{{materialOne.count}} -> {{materialOne.count * NoFocusCoef | floor}}</td>
+          <td>{{materialOne.count}} -> {{materialOne.count * FocusCoef | floor}}</td>
+      </tr>
+      <tr>
+          <td>Material Two Count</td>
+          <td>{{materialTwo.count}} -> {{materialTwo.count * NoFocusCoef | floor}}</td>
+          <td>{{materialTwo.count}} -> {{materialTwo.count * FocusCoef | floor}}</td>
+      </tr>
+      <tr>
+          <td>Total Cost</td>
+          <td>{{totalCost() | ceil}}</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Total Profit</td>
+          <td>{{sellPrice - totalCost() | floor}} + extra and x more items</td>
+          <td>{{sellPrice - totalCost() | floor}} + extra and x more items</td>
+      </tr>
+    </tbody>
+  </table>
 </div>

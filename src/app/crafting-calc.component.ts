@@ -8,9 +8,13 @@ import { CraftingItem, CraftingService, CraftingItemTypeMaterials, CraftingItemT
     styleUrls: ['./crafting-calc.component.css']
 })
 export class CraftingCalcComponent implements OnInit {
-
     constructor(private craftingService: CraftingService){}
 
+
+    NoFocusCoef: number = 1.15;
+    FocusCoef: number = 1.45;
+
+    
     tiers: number[];
     items: CraftingItem[];
     itemTypeMaterials: Map<CraftingItemType, CraftingItemTypeMaterials>;
@@ -20,8 +24,8 @@ export class CraftingCalcComponent implements OnInit {
 
     materialOne: MaterialInfo;
     materialTwo?: MaterialInfo;
-    artifact: MaterialInfo;
-    sellPrice: number;
+    artifact: number = 0;
+    sellPrice: number = 0;
 
     ngOnInit(): void {
         this.tiers = [3, 4, 5, 6, 7, 8];
@@ -35,7 +39,7 @@ export class CraftingCalcComponent implements OnInit {
     onChange(newValue: any){
         this.materialOne = this.getMaterialInfo(this.selectedTier, 0, this.selectedItem.itemType, this.selectedItem.materialOne);
         this.materialTwo = this.getMaterialInfo(this.selectedTier, 1, this.selectedItem.itemType, this.selectedItem.materialTwo);
-        this.artifact = {count: 1, cost: 0};
+        this.artifact = 0;
     }
 
     private getMaterialInfo(tier: number, index: number, itemType: CraftingItemType, materialType?: CraftingMaterialType) : MaterialInfo {
@@ -45,6 +49,17 @@ export class CraftingCalcComponent implements OnInit {
         }
         var count = itemTypeMaterial.materialCounts[index];
         return {cost: 0, count};
+    }
+
+    sum(info?: MaterialInfo) : number {
+        if(!info){
+            return 0;
+        }
+        return info.cost * info.count;
+    }
+
+    totalCost(coef: number = 1) : number {
+       return ((this.sum(this.materialOne) + this.sum(this.materialTwo)) * coef) + this.artifact;
     }
 }
 

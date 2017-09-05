@@ -5,7 +5,8 @@ import {
   CraftingItemTypeMaterials, 
   CraftingMaterialType,
   CraftingMaterialCostEntry,
-  CraftingItemCostEntry
+  CraftingItemCostEntry,
+  ArtifactType
 } from './crafting.service';
 
 
@@ -42,7 +43,7 @@ export class InMemoryDataService implements InMemoryDbService {
         itemType: CraftingItemType.OneHandedWeapon,
         materialOne: CraftingMaterialType.Plank,
         materialTwo: CraftingMaterialType.Cloth,
-        artifact: CraftingMaterialType.PossessedScroll
+        artifact: ArtifactType.PossessedScroll
       },
       {
         id: 4,
@@ -50,7 +51,7 @@ export class InMemoryDataService implements InMemoryDbService {
         itemType: CraftingItemType.TwoHandedWeapon,
         materialOne: CraftingMaterialType.Plank,
         materialTwo: CraftingMaterialType.Cloth,
-        artifact: CraftingMaterialType.InfernalScroll
+        artifact: ArtifactType.InfernalScroll
       },
       {
         id: 5,
@@ -58,7 +59,7 @@ export class InMemoryDataService implements InMemoryDbService {
         itemType: CraftingItemType.Tome,
         materialOne: CraftingMaterialType.Cloth,
         materialTwo: CraftingMaterialType.Leather,
-        artifact: CraftingMaterialType.AlluringCrystal
+        artifact: ArtifactType.AlluringCrystal
       },
       {
         id: 6,

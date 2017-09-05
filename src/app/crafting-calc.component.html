@@ -1,6 +1,6 @@
 <div>
-  <select>
-    <option *ngFor="let tier of tiers" value='{{tier}}'>
+  <select [(ngModel)]="selectedTier">
+    <option *ngFor="let tier of tiers" [ngValue]="tier">
       T{{tier}}
     </option>
 </select>
@@ -14,34 +14,44 @@
 </div>
 <div *ngIf="selectedItem">
   <label>Item Count</label>
-  <input type="number" [(ngModel)]="itemCount"/>
+  <input type="number" [(ngModel)]="itemCount" />
+  <label>Crafting Tax</label>
+  <input type="number" [(ngModel)]="CraftingTax" />
+  <label>Market Tax</label>
+  <input type="number" [(ngModel)]="MarketTax" />
   <div *ngIf="selectedItem.materialOne != null">
     <label>Material 1 Cost</label>
-    <input type="number" [(ngModel)]="materialOne.cost"> x {{materialOne.count * itemCount}}
+    <input type="number" [(ngModel)]="materialOne.cost"> x {{materialOne.count}}
   </div>
   <div *ngIf="selectedItem.materialTwo != null">
     <label>Material 2 Cost</label>
-    <input type="number" [(ngModel)]="materialTwo.cost"> x {{materialTwo.count * itemCount}}
+    <input type="number" [(ngModel)]="materialTwo.cost"> x {{materialTwo.count}}
   </div>
   <div *ngIf="selectedItem.artifact != null">
     <label>Artifact Cost</label>
-    <input type="number" [(ngModel)]="artifact"> x {{itemCount}}
+    <input type="number" [(ngModel)]="artifact">
   </div>
   <div>Total cost = {{totalCost()}}</div>
   <div>
     <label>Sell Price</label>
-    <input type="number" [(ngModel)]="sellPrice"> {{sellPrice * (1-Tax)}} after {{Tax * 100}}% Tax
+    <input type="number" [(ngModel)]="sellPrice"> {{sellPrice * (1-MarketTax)}} after {{MarketTax * 100}}% Market Tax
   </div>
-  <div>Total Return after {{Tax * 100}}% tax = {{totalReturn() | floor}}</div>
+  <div>Total Return after {{MarketTax * 100}}% market tax = {{totalReturn() | floor}}</div>
 
-  <div>Material One Needed: {{getMinMaterialCount(materialOne.count, (1/NoFocusCoef)) | ceil}} ({{getMinMaterialCount(materialOne.count, (1/FocusCoef)) | ceil}})</div>
-  <div>Extra after crafting: {{getExtraMaterials(materialOne.count, (1/NoFocusCoef)) | floor}} ({{getExtraMaterials(materialOne.count, (1/FocusCoef)) | floor}})</div>
+  <div>Material One Needed: {{getMinMaterialCount(materialOne.count, (1/NoFocusCoef)) | ceil}} ({{getMinMaterialCount(materialOne.count,
+    (1/FocusCoef)) | ceil}})</div>
+  <div>Extra after crafting: {{getExtraMaterials(materialOne.count, (1/NoFocusCoef)) | floor}} ({{getExtraMaterials(materialOne.count,
+    (1/FocusCoef)) | floor}})</div>
+
+  <div>Material Two Needed: {{getMinMaterialCount(materialTwo.count, (1/NoFocusCoef)) | ceil}} ({{getMinMaterialCount(materialTwo.count,
+    (1/FocusCoef)) | ceil}})</div>
+  <div>Extra after crafting: {{getExtraMaterials(materialTwo.count, (1/NoFocusCoef)) | floor}} ({{getExtraMaterials(materialTwo.count,
+    (1/FocusCoef)) | floor}})</div>
   
-  <div>Material Two Needed: {{getMinMaterialCount(materialTwo.count, (1/NoFocusCoef)) | ceil}} ({{getMinMaterialCount(materialTwo.count, (1/FocusCoef)) | ceil}})</div>
-  <div>Extra after crafting: {{getExtraMaterials(materialTwo.count, (1/NoFocusCoef)) | floor}} ({{getExtraMaterials(materialTwo.count, (1/FocusCoef)) | floor}})</div>
-  
-  <div>Total Cost: {{totalCost(1/NoFocusCoef) | ceil}} ({{totalCost(1/FocusCoef) | ceil}})</div>
+  <div>Crafting Tax Cost: {{getCraftingTax() | ceil}}</div>
     
+  <div>Total Cost: {{totalCost(1/NoFocusCoef) | ceil}} ({{totalCost(1/FocusCoef) | ceil}})</div>
+
   <div>Total Profit: {{totalReturn() - totalCost(1/NoFocusCoef) | floor}} ({{totalReturn() - totalCost(1/FocusCoef) | floor}})</div>
 
 </div>

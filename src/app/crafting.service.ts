@@ -7,7 +7,7 @@ export class CraftingItem {
     itemType: CraftingItemType;
     materialOne: CraftingMaterialType;
     materialTwo?: CraftingMaterialType;
-    artifact?: CraftingMaterialType;
+    artifact?: ArtifactType;
 }
 
 export enum CraftingItemType {
@@ -25,6 +25,9 @@ export enum CraftingMaterialType {
     Cloth,
     Plank,
     Bar,
+}
+
+export enum ArtifactType {
     AlluringCrystal,
     PossessedScroll,
     InfernalScroll

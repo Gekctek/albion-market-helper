@@ -8,6 +8,9 @@ import {
   CraftingItemCostEntry,
   ArtifactType
 } from './crafting.service';
+import { 
+  Plant
+} from './farming.service';
 
 
 export class InMemoryDataService implements InMemoryDbService {
@@ -86,8 +89,67 @@ export class InMemoryDataService implements InMemoryDbService {
       }
     ]; 
 
+    const plants: Plant[] = [
+      {
+        tier: 1,
+        yield: 0,
+        waterBonus: 2,
+        crop: "Carrots",
+        herb: null
+      },
+      {
+        tier: 2,
+        yield: 1/3,
+        waterBonus: 4/3,
+        crop: "Beans",
+        herb: "Arcane Agaric"
+      },
+      {
+        tier: 3,
+        yield: 3/5,
+        waterBonus: .8,
+        crop: "Wheat",
+        herb: "Brightleaf Comfrey"
+      },
+      {
+        tier: 4,
+        yield: 11/15,
+        waterBonus: 8/15,
+        crop: "Turnips",
+        herb: "Crenellated Burdock"
+      },
+      {
+        tier: 5,
+        yield: 4/5,
+        waterBonus: .40,
+        crop: "Cabbage",
+        herb: "Dragon Teasel"
+      },
+      {
+        tier: 6,
+        yield: 13/15,
+        waterBonus: .27,
+        crop: "Potatoes",
+        herb: "Elusive Foxglove"
+      },
+      {
+        tier: 7,
+        yield: 41/45,
+        waterBonus: .18,
+        crop: "Corn",
+        herb: "Firetouched Mullein"
+      },
+      {
+        tier: 8,
+        yield: 14/15,
+        waterBonus: .13,
+        crop: "Pumpkins",
+        herb: "Ghoul Yarrow"
+      }
+    ];
+
     const materialCostHistory: CraftingMaterialCostEntry[] = [];
     const itemCostHistory: CraftingItemCostEntry[] = [];
-    return { craftingItems, craftingItemTypes, materialCostHistory, itemCostHistory };
+    return { craftingItems, craftingItemTypes, materialCostHistory, itemCostHistory, plants };
   }
 }
